@@ -48,8 +48,8 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <h1>미세먼지 알리미</h1>
+      <h1>미세먼지 알리미</h1>
+      <section>
         {apiData.map((data, index) => (
           <div key={index}>
             <h2>{data.stationName}</h2>
@@ -59,7 +59,7 @@ function App() {
             <h5>{data.dataTime}</h5>
           </div>
         ))}
-      </div>
+      </section>
     </div>
   );
 };
