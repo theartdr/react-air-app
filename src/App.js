@@ -2,6 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 // import axios from 'axios';
 // axios.get('data.json');
+import './components/region'
 
 function App() {
   const [apiData, setApiData] = useState([]);
@@ -49,6 +50,19 @@ function App() {
   return (
     <div className="App">
       <h1>미세먼지 알리미</h1>
+      <label>
+        <select name="selectedRegion">
+          <option value="전국">전국</option>
+          <option value="서울">서울</option>
+          <option value="부산">부산</option>
+          <option value="인천">인천</option>
+          <option value="대전">대전</option>
+          <option value="대구">대구</option>
+          <option value="광주">광주</option>
+          <option value="제주">제주</option>
+        </select>
+      </label>
+      
       <section>
         {apiData.map((data, index) => (
           <div key={index}>
