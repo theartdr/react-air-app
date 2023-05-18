@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 // import axios from 'axios';
 // axios.get('data.json');
 import RegionPicker from './components/region';
-
+import Grade from './components/Grade';
 function App() {
   const [apiData, setApiData] = useState([]);
+  const [selectedRegion, setSelectedRegion] = useState();
 
 // const [loading, setLoading] = useState(false);
 //   const fetchApp = async () => {
@@ -23,7 +24,7 @@ function App() {
     returnType:'json',
     numOfRows:'100',
     pageNo:'1',
-    sidoName: '서울',
+    sidoName: selectedRegion ? selectedRegion: '서울',
     ver:'1.0',
     }
 
@@ -45,19 +46,19 @@ function App() {
   useEffect(() => {
     fetch(`B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${getParameters['serviceKey']}&returnType=${getParameters['returnType']}&numOfRows=${getParameters['numOfRows']}&pageNo=${getParameters['pageNo']}&sidoName=${getParameters['sidoName']}&ver=${getParameters['ver']}`
       ).then(response => response.json()
-      ).then((data) => {setApiData(data['response']['body']['items'])}); 
+      ).then((data) => {setApiData(data['response']['body']['items'])});
   },);
 
   return (
     <div className="App">
       <h1>미세먼지 알리미</h1>
-      <RegionPicker />      
+      <RegionPicker selectedRegion={selectedRegion} setSelectedRegion={setSelectedRegion}/>      
       <section>
         {apiData.map((data, index) => (
           <div key={index}>
             <h2>{data.stationName}</h2>
             <h3>{data.sidoName}</h3>
-            <h1>{data.pm10Grade}</h1>
+            <Grade grade={data.pm10Grade} />
             <h4>{data.pm10Value}</h4>
             <h5>{data.dataTime}</h5>
           </div>
