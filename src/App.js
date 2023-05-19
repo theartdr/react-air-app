@@ -24,7 +24,7 @@ function App() {
     returnType:'json',
     numOfRows:'100',
     pageNo:'1',
-    sidoName: selectedRegion ? selectedRegion: '서울',
+    sidoName: selectedRegion ? selectedRegion: '전국',
     ver:'1.0',
     }
 
@@ -59,7 +59,7 @@ function App() {
             <h2>{data.stationName}</h2>
             <h3>{data.sidoName}</h3>
             <Grade grade={data.pm10Grade} />
-            <h4>{data.pm10Value}</h4>
+            <h4>{data.pm10Value==='-' ? '알수없음' : data.pm10Value}</h4>
             <h5>{data.dataTime}</h5>
           </div>
         ))}
