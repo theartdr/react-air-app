@@ -1,8 +1,10 @@
-export default function RegionPicker() {
+export default function RegionPicker({selectedRegion, setSelectedRegion}) {
 return (
-  <label>
-    지역:
-    <select name="selectedRegion">
+  <label>지역 선택 <br/><br/>
+    <select 
+      value={selectedRegion}
+      onChange={e => setSelectedRegion(e.target.value)}
+    >
       <option value="전국">전국</option>
       <option value="서울">서울</option>
       <option value="부산">부산</option>
