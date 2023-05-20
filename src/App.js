@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 // axios.get('data.json');
 import RegionPicker from './components/region';
 import Grade from './components/Grade';
+import styled from 'styled-components';
+// import Section from './Section';
 function App() {
   const [apiData, setApiData] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState();
@@ -48,23 +50,51 @@ function App() {
       ).then(response => response.json()
       ).then((data) => {setApiData(data['response']['body']['items'])});
   },);
+  const Card = styled.div`{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }`
+  const Region = styled(Card)`{
+    justify-content: left;
+    font-size: ${(props) => props.fSize}
+  }`
+  const Footer = styled(Card)`{
+    position: fixed;
+    bottom: 40px;
+    width: 50%;
+    height: 3rem;
+    z-index: 10;
+    background-color: white;
+  }`
+  const Tab = styled.div`{
+    margin: 0 40px;
+    height: 3rem;
+    align-items: stretch;
+  }`
 
   return (
-    <div className="App">
-      <h1>미세먼지 알리미</h1>
-      <RegionPicker selectedRegion={selectedRegion} setSelectedRegion={setSelectedRegion}/>      
-      <section>
-        {apiData.map((data, index) => (
-          <div key={index}>
-            <h2>{data.stationName}</h2>
-            <h3>{data.sidoName}</h3>
-            <Grade grade={data.pm10Grade} />
-            <h4>{data.pm10Value==='-' ? '알수없음' : data.pm10Value}</h4>
-            <h5>{data.dataTime}</h5>
-          </div>
-        ))}
-      </section>
-    </div>
+    <Card>
+      <div className="App">
+        <h1>미세먼지 알리미</h1>
+        <RegionPicker selectedRegion={selectedRegion} setSelectedRegion={setSelectedRegion}/>      
+          {apiData.map((data, index) => (
+            <section key={index} grade={data.pm10Grade}>
+              <Region fSize="24px">{data.stationName}</Region>
+              <Region fSize="20px">{data.sidoName}</Region>
+              <Grade grade={data.pm10Grade} />
+              <h4>미세먼지 수치 : {data.pm10Value==='-' ? '알수없음' : data.pm10Value}</h4>
+              <h5>({data.dataTime} 기준)</h5>
+            </section>
+          ))}
+        <Footer>
+          <Tab><span class="material-symbols-outlined">my_location</span>내 지역보기</Tab>
+          <Tab><span class="material-symbols-outlined">map</span>전체 시도보기</Tab>
+          <Tab><span class="material-symbols-outlined">pin_drop</span>즐겨찾기</Tab>
+        </Footer> 
+      </div>
+    </Card>
   );
 };
 
