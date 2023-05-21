@@ -67,15 +67,22 @@ function App() {
     height: 3rem;
     z-index: 10;
     background-color: white;
+    align-items: stretch;
   }`
   const Tab = styled.div`{
+    display: flex;
+    align-items: center;
     margin: 0 40px;
     height: 3rem;
-    align-items: stretch;
+    span {
+      font-size: 36px;
+      &:hover {
+        font-size: 40px}
+    }
   }`
 
   return (
-    <Card>
+    <Card as="header">
       <div className="App">
         <h1>미세먼지 알리미</h1>
         <RegionPicker selectedRegion={selectedRegion} setSelectedRegion={setSelectedRegion}/>      
@@ -91,7 +98,7 @@ function App() {
         <Footer>
           <Tab><span class="material-symbols-outlined">my_location</span>내 지역보기</Tab>
           <Tab><span class="material-symbols-outlined">map</span>전체 시도보기</Tab>
-          <Tab><span class="material-symbols-outlined">pin_drop</span>즐겨찾기</Tab>
+          <Tab as="a"><span class="material-symbols-outlined">pin_drop</span>즐겨찾기</Tab>
         </Footer> 
       </div>
     </Card>

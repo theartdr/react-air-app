@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+Section {
+  width: 400px;
+  height:200px;
+  padding: 10px;
+  margin: 20px;
+  display: flexbox;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: medium;
+  color:#282c34;
+  text-align: center;
+  z-index:-1
+}
